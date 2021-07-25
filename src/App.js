@@ -18,7 +18,7 @@ class App extends Component {
         {
           id: PropTypes.any.isRequired,
           name: PropTypes.string.isRequired,
-          number: PropTypes.string.isRequired,
+          number: PropTypes.number.isRequired,
         })
     ),
     filter: PropTypes.string,
@@ -26,12 +26,7 @@ class App extends Component {
     visibleContacts: PropTypes.number,
   };
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Margo Robins', number: '093-144-15-14'},
-      {id: 'id-2', name: 'Damon Crunk', number: '095-111-12-23'},
-      {id: 'id-3', name: 'Paulo Swit ', number: '078-137-22-79'},
-      {id: 'id-4', name: 'Mango Candy', number: '050-932-15-26'},
-    ],
+    contacts: [ ],
     filter: '',
   };
 
@@ -62,6 +57,34 @@ class App extends Component {
 
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value })
+  }
+
+  componentDidMount() {
+    // если нужно прочитать из localStorege при первой загрузке и отрисовать, то что там сохранилось, усли state пусто
+
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+
+    if (parsedContacts) {
+      this.setState({contacts:parsedContacts})
+    };
+
+    // отрисовка контактов при первом рендере из state или localStorege, если он отличается от state
+    // const contacts = localStorage.getItem('contacts');
+    // const parsedContacts = JSON.parse(contacts);
+    // if (parsedContacts && parsedContacts !== this.state.contacts) {
+    //   this.setState({ contacts: parsedContacts });
+    // }
+  }
+
+
+
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts){
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+    
   }
 
   render() {
