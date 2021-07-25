@@ -1,0 +1,14 @@
+.input{
+    margin-left: 20px;
+    padding: 10px 20px;
+    border: 1px solid rgb(164, 143, 188);
+    background-color:rgb(236, 196, 255);
+    border-radius: 5px;
+}
+.btn{
+    color: rgb(157, 71, 255);
+    background-color:rgb(241, 196, 255);
+    padding: 10px 20px;
+    border: 1px solid rgb(174, 143, 188);
+    border-radius: 5px;
+}
